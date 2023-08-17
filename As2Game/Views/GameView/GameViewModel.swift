@@ -1,14 +1,17 @@
 //
-//  GaneSelectorView.swift
+//  GameViewModel.swift
 //  As2Game
 //
-//  Created by Vũ Thị Hương on 15/08/2023.
+//  Created by Vũ Thị Hương on 16/08/2023.
 //
 
+
 import Foundation
+import UIKit
+import Combine
 
 final class GameViewModel: ObservableObject {
-
+    
     @Published var board: Board = []
     @Published var currentPlayer = Player.white
     @Published var whiteRemainigTime: String = ""
@@ -16,13 +19,13 @@ final class GameViewModel: ObservableObject {
     @Published var whitePlayerName = "Player 1"
     @Published var blackPlayerName = ""
     var pieces: [Piece] { chessGame.activePieces }
-
+    
     private var disposables = Set<AnyCancellable>()
     private let chessGame: ChessGame
     private let ai: AIChess
     private let gameMode: GameMode
-
-
+    
+    
     init(gameMode: GameMode) {
         self.gameMode = gameMode
         chessGame = ChessGame(gameMode: gameMode)
@@ -46,11 +49,11 @@ final class GameViewModel: ObservableObject {
             }
         }
     }
-
+    
     func indexOf(_ piece: Piece) -> Position {
         chessGame.indexOf(piece)
     }
-
+    
     func start() {
         chessGame.start()
     }

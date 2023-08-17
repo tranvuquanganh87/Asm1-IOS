@@ -2,27 +2,27 @@
 //  PieceMovement.swift
 //  As2Game
 //
-//  Created by Vũ Thị Hương on 15/08/2023.
+//  Created by Vũ Thị Hương on 16/08/2023.
 //
 
 import Foundation
 
 struct PieceMovement {
-
+    
     let bounds = 0...7
-
+    
     func isValid(board: Board, move: Move, player: Player) -> Bool {
         guard move.start != move.end,
-            let piece = board[move.start],
-            bounds ~= move.end.x && bounds ~= move.end.y,
-            piece.player == player else {
+              let piece = board[move.start],
+              bounds ~= move.end.x && bounds ~= move.end.y,
+              piece.player == player else {
             return false
         }
-
+        
         if let boardPlayer = board[move.end]?.player, boardPlayer == player {
             return false
         }
-
+        
         switch piece.type {
         case .pawn: return validPawnMove(board: board, move: move, player: player)
         case .knight: return validKnightMove( move: move)
@@ -32,7 +32,7 @@ struct PieceMovement {
         case .queen: return validBishopMove(board: board, move: move) || validRookMove(board: board, move: move)
         }
     }
-
+    
     private func validPawnMove(board: Board, move: Move, player: Player) -> Bool {
         if abs(move.start.x - move.end.x)  == 1 {
             guard let boardplayer = board[move.end]?.player, boardplayer != player else {
@@ -54,15 +54,15 @@ struct PieceMovement {
         }
         return false
     }
-
+    
     private func validKnightMove(move: Move) -> Bool {
-       (abs(move.start.x - move.end.x) == 1 && abs(move.start.y - move.end.y) == 2) || (abs(move.start.x - move.end.x) == 2 && abs(move.start.y - move.end.y) == 1)
+        (abs(move.start.x - move.end.x) == 1 && abs(move.start.y - move.end.y) == 2) || (abs(move.start.x - move.end.x) == 2 && abs(move.start.y - move.end.y) == 1)
     }
-
+    
     private func validKingMove(move: Move) -> Bool {
         [0, 1].contains(abs(move.start.x - move.end.x)) && [0, 1].contains(abs(move.start.y - move.end.y))
     }
-
+    
     private func validRookMove(board: Board, move: Move) -> Bool {
         guard move.start.x == move.end.x || move.start.y == move.end.y else {
             return false
@@ -88,7 +88,7 @@ struct PieceMovement {
         }
         return true
     }
-
+    
     private func validBishopMove(board: Board, move: Move) -> Bool {
         guard abs(move.start.x - move.end.x) == abs(move.start.y - move.end.y) else {
             return false

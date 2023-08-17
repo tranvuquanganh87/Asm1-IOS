@@ -2,11 +2,10 @@
 //  Position+UIKit.swift
 //  As2Game
 //
-//  Created by Vũ Thị Hương on 15/08/2023.
+//  Created by Vũ Thị Hương on 16/08/2023.
 //
 
 import Foundation
-
 import UIKit
 
 extension Position {

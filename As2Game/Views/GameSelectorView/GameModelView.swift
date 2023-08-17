@@ -1,11 +1,13 @@
 //
-//  GameSelectorViewModel.swift
+//  GameModelView.swift
 //  As2Game
 //
-//  Created by Vũ Thị Hương on 15/08/2023.
+//  Created by Vũ Thị Hương on 16/08/2023.
 //
 
 import Foundation
+
+import SwiftUI
 
 struct GameModeView: View {
     var gameMode: GameMode
@@ -44,7 +46,7 @@ struct PersonView: View {
 }
 
 struct GameModeView_Previews: PreviewProvider {
-        static var previews: some View {
-            GameModeView(gameMode: GameMode(minuts: 3, increment: 0, mode: .computer))
+    static var previews: some View {
+        GameModeView(gameMode: GameMode(minuts: 3, increment: 0, mode: .computer))
     }
 }

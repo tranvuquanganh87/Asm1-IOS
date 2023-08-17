@@ -2,29 +2,31 @@
 //  GameView.swift
 //  As2Game
 //
-//  Created by Vũ Thị Hương on 15/08/2023.
+//  Created by Vũ Thị Hương on 16/08/2023.
 //
 
 import Foundation
 
-struct GameView: View {
+import SwiftUI
 
+struct GameView: View {
+    
     @ObservedObject private var viewModel: GameViewModel
     @State private var currentPiece: (Piece?, CGSize) = (nil, .zero)
     @State var isRotatingWhite = true
-
+    
     init(gameMode: GameMode) {
         viewModel = GameViewModel(gameMode: gameMode)
     }
-
+    
     var body: some View {
-
+        
         ZStack {
             BackgroundView()
             
             VStack(spacing: 0) {
                 HUDView(name: viewModel.blackPlayerName, time: viewModel.blackRemainigTime, isCurrentPlayer: viewModel.currentPlayer == .black)
-
+                
                 ZStack(alignment: .bottomLeading) {
                     ChessBoardView()
                     ForEach(viewModel.pieces) { piece in
@@ -39,7 +41,7 @@ struct GameView: View {
                     }
                 }
                 .frame(maxHeight: UIScreen.main.bounds.width)
-
+                
                 HUDView(name: viewModel.whitePlayerName, time: viewModel.whiteRemainigTime, isCurrentPlayer: viewModel.currentPlayer == .white)
             }
         }
@@ -54,13 +56,13 @@ struct GameView: View {
             .onChanged { dragValue in
                 self.currentPiece = (piece, self.viewModel.indexOf(piece).size + dragValue.translation)
                 self.viewModel.objectWillChange.send()
-        }
-        .onEnded {
-            self.currentPiece = (nil, .zero)
-            let finalPosition = self.viewModel.indexOf(piece) + Position($0.translation)
-            let move = Move(start: self.viewModel.indexOf(piece), end: finalPosition)
-            self.viewModel.didMove(move: move)
-        }
+            }
+            .onEnded {
+                self.currentPiece = (nil, .zero)
+                let finalPosition = self.viewModel.indexOf(piece) + Position($0.translation)
+                let move = Move(start: self.viewModel.indexOf(piece), end: finalPosition)
+                self.viewModel.didMove(move: move)
+            }
     }
 }
 
