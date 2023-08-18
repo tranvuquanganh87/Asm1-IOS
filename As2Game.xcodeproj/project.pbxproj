@@ -49,6 +49,8 @@
 		6E9A42262A88F8D1004D2C12 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9A42252A88F8D1004D2C12 /* LogInView.swift */; };
 		6E9A422A2A895467004D2C12 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9A42292A895467004D2C12 /* Extensions.swift */; };
 		6E9A422C2A8A5152004D2C12 /* testView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9A422B2A8A5152004D2C12 /* testView.swift */; };
+		6EFC3C912A8F6E9D0044BA2D /* CustomFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EFC3C902A8F6E9D0044BA2D /* CustomFooterView.swift */; };
+		6EFC3C942A8F86500044BA2D /* DashBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EFC3C932A8F86500044BA2D /* DashBoardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +116,8 @@
 		6E9A42252A88F8D1004D2C12 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 		6E9A42292A895467004D2C12 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		6E9A422B2A8A5152004D2C12 /* testView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testView.swift; sourceTree = "<group>"; };
+		6EFC3C902A8F6E9D0044BA2D /* CustomFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFooterView.swift; sourceTree = "<group>"; };
+		6EFC3C932A8F86500044BA2D /* DashBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashBoardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -283,6 +287,8 @@
 		6E9A42212A866C0B004D2C12 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				6EFC3C922A8F86310044BA2D /* DashBoard */,
+				6EFC3C8F2A8F6E7D0044BA2D /* CustomFooter */,
 				6E89AD792A8D0E2E00D219BC /* GameSelectorView */,
 				6E89AD782A8D0E1A00D219BC /* GameView */,
 				6E9A42242A88F8BA004D2C12 /* LogInView */,
@@ -310,6 +316,22 @@
 				6E9A42292A895467004D2C12 /* Extensions.swift */,
 			);
 			path = ExtensionManage;
+			sourceTree = "<group>";
+		};
+		6EFC3C8F2A8F6E7D0044BA2D /* CustomFooter */ = {
+			isa = PBXGroup;
+			children = (
+				6EFC3C902A8F6E9D0044BA2D /* CustomFooterView.swift */,
+			);
+			path = CustomFooter;
+			sourceTree = "<group>";
+		};
+		6EFC3C922A8F86310044BA2D /* DashBoard */ = {
+			isa = PBXGroup;
+			children = (
+				6EFC3C932A8F86500044BA2D /* DashBoardView.swift */,
+			);
+			path = DashBoard;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -450,6 +472,7 @@
 				6E89AD7D2A8D0E7500D219BC /* GameSelectorViewModel.swift in Sources */,
 				6E89AD882A8D0F0200D219BC /* ChessBoardView.swift in Sources */,
 				6E89AD652A8D0D0300D219BC /* TimeInterval.swift in Sources */,
+				6EFC3C912A8F6E9D0044BA2D /* CustomFooterView.swift in Sources */,
 				6E89AD8A2A8D0F1500D219BC /* BackGroundView.swift in Sources */,
 				6E89AD5B2A8D0C7D00D219BC /* AIPlayer.swift in Sources */,
 				6E89AD592A8D0C6A00D219BC /* AIEngine.swift in Sources */,
@@ -477,6 +500,7 @@
 				6E89AD6F2A8D0D9F00D219BC /* Move.swift in Sources */,
 				6E89AD692A8D0D4B00D219BC /* AppDelegate.swift in Sources */,
 				6E89AD712A8D0DA700D219BC /* Position.swift in Sources */,
+				6EFC3C942A8F86500044BA2D /* DashBoardView.swift in Sources */,
 				6E89AD5D2A8D0C8900D219BC /* AIMove.swift in Sources */,
 				6E89AD972A8D0F9600D219BC /* Player.swift in Sources */,
 			);

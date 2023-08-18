@@ -19,22 +19,45 @@ struct HUDView: View {
     
     var body: some View {
         HStack {
-            Text(name)
-                .fontWeight(.medium)
-                .padding(.horizontal)
-            Spacer()
-            HStack {
-                Image(systemName: "clock")
-                Text(time)
+            HStack{
+                Image("sample_avatar")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width:50, height: 50)
+                    .background(.black.opacity(0.2) )
+                    .mask(Circle())
+                VStack{
+                    Text(name)
+                        .fontWeight(.medium)
+                        .padding(.horizontal)
+                    
+                    Text("level 2")
+                }
             }
             
-            .padding()
-            .background(Color.green.opacity(0.7))
+            Spacer()
+            Rectangle()
+                .foregroundColor(isCurrentPlayer ? .yellow : .gray)
+                .cornerRadius(20)
+                .frame(width:140,height : 50)
+                .padding()
+                .overlay{
+                    HStack {
+                        Image(systemName: "clock")
+                        Text(time)
+                    }
+                    
+                    .padding()
+                }
+               
+           
+//            .background(Color.green.opacity(0.7))
             
         }
+        .padding(.horizontal,10)
         .foregroundColor(.white)
         .font(Font.system(.headline, design: .monospaced))
-        .background(Color.secondary)
+//        .background(Color.secondary)
         .opacity(isCurrentPlayer ? 1 : 0.7)
         .blur(radius: isCurrentPlayer ? 0 : 0.4)
         

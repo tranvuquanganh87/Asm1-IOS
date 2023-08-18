@@ -55,6 +55,8 @@ struct PieceMovement {
         return false
     }
     
+
+    
     private func validKnightMove(move: Move) -> Bool {
         (abs(move.start.x - move.end.x) == 1 && abs(move.start.y - move.end.y) == 2) || (abs(move.start.x - move.end.x) == 2 && abs(move.start.y - move.end.y) == 1)
     }

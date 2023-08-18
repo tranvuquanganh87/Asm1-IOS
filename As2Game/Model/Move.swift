@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct Move {
+struct Move : Identifiable  {
+    let id = UUID()
     let start: Position
     let end: Position
 }

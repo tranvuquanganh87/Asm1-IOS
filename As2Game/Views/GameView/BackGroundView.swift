@@ -11,9 +11,11 @@ import SwiftUI
 
 struct BackgroundView: View {
     var body: some View {
-        Image("pattern")
-            .opacity(0.05)
-            .blur(radius: 1)
+//        Image("black-special")
+//            .opacity(0.05)
+//            .blur(radius: 1)
+        Color("black-special")
+            .ignoresSafeArea()
     }
 }
 

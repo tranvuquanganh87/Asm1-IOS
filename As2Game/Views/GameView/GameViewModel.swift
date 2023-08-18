@@ -21,9 +21,9 @@ final class GameViewModel: ObservableObject {
     var pieces: [Piece] { chessGame.activePieces }
     
     private var disposables = Set<AnyCancellable>()
-    private let chessGame: ChessGame
-    private let ai: AIChess
-    private let gameMode: GameMode
+    private var chessGame: ChessGame
+    private var ai: AIChess
+    private var gameMode: GameMode
     
     
     init(gameMode: GameMode) {
@@ -37,6 +37,15 @@ final class GameViewModel: ObservableObject {
         blackPlayerName = gameMode.mode == .computer  ? "Computer" : "Player 2"
     }
     
+    func resetGame(with gameMode: GameMode){
+        chessGame.reset()
+    }
+    func validMovements(for position: Position) -> [Move] {
+        guard let piece = board[position] else {
+            return []
+        }
+        return PieceMovement().validMovementsFor(position: position, with: piece, withBoard: board)
+    }
     
     func didMove(move: Move) {
         guard ai.isThinking == false else { return }

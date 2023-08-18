@@ -60,6 +60,16 @@ class ChessGame {
         startClocks()
     }
     
+    func reset(){
+        cancellables.removeAll()
+        timer = Timer.publish(every: 1.0, on: .main, in: .common)
+        timer.connect().store(in: &cancellables)
+        board.value = ChessGame.loadInitialBoard()
+        currentPlayer.value = .white
+        whiteRemainingTime.value = Double(gameMode.minuts * 60)
+        blackRemainingTime.value = Double(gameMode.minuts * 60)
+        startClocks()
+    }
     private func checkCurretPlayerIsInCheck() {
         let otherPlayer = currentPlayer.value == .white ? Player.black : .white
         let otherPlayerPieces = activePieces.filter { $0.player == otherPlayer }
