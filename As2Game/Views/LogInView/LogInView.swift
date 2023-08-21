@@ -11,6 +11,11 @@ import SwiftUI
 import CoreData
 import UIKit
 struct LogInView: View {
+    @Environment(\.managedObjectContext) var managedObjContext
+    @Environment(\.dismiss) var dismiss
+    @State private var showAlert = false
+    @State var userNameSignIn : String =  ""
+    @State var passwordSignIn : String = ""
     @State var isMusic : Bool = false
     @State var isSFX : Bool = false
     @State var isAutoPromotion : Bool = false
@@ -24,8 +29,8 @@ struct LogInView: View {
     let fillPercentage2: CGFloat = 0.6
     @State var isBlurLogIn : Bool  = false
     @State var showAddUserView : Bool = false
-    @Environment(\.managedObjectContext) var managedObjContext
     @State var fullNameTerm : String =  ""
+    @State var confirmPassTerm : String =  ""
     @State var isWelComeView : Bool = true
     //    @FetchRequest(sortDescriptors: [SortDescriptor(\User.username)]) var user: FetchRequest<User>
     @FetchRequest(sortDescriptors: [SortDescriptor(\User.username)]) var user: FetchedResults<User>
@@ -297,7 +302,7 @@ struct LogInView: View {
                                     }
                                 Button(){
                                     //                            isBlurLogIn.toggle()
-                                   
+                                    
                                 } label: {
                                     Text("Finish")
                                         .fontWeight(.bold)
@@ -440,22 +445,65 @@ struct LogInView: View {
                                         }
                                 }
                                 .padding(.horizontal,20)
-                                Button(){
-                                    //                            isBlurLogIn.toggle()
-                                    isLogIn.toggle()
-                                    isWelComeView = false
-                                    isAvatarInfo = true
-                                    print(isWelComeView)
-                                } label: {
-                                    Text("Log In")
-                                        .fontWeight(.bold)
-                                        .foregroundColor(.white)
+                                VStack{
+                                    VStack(spacing : 40){
+                                        ZStack{
+                                            TextField("Enter text", text: $userNameSignIn)
+                                                .padding()
+                                                .overlay(
+                                                    RoundedRectangle(cornerRadius: 10)
+                                                        .stroke(Color.gray, lineWidth: 2) // Set the border color and width
+                                                )
+                                            VStack{
+                                                RoundedRectangle(cornerRadius: 10)
+                                                    .foregroundColor(.white)
+                                                    .frame(width: 100, height:10)
+                                                    .overlay(
+                                                        Text("Full name")
+                                                            .foregroundColor(.black) // Set the text color
+                                                    )
+                                            }
+                                            .frame(maxWidth: .infinity, alignment: .topLeading)
+                                            .offset(x:20,y:-28)
+                                        }
+                                        .frame(maxWidth: .infinity,alignment: .leading)
+                                        
+                                        ZStack{
+                                            TextField("Enter your password", text : $passwordSignIn)
+                                                .padding()
+                                                .overlay(
+                                                    RoundedRectangle(cornerRadius: 10)
+                                                        .stroke(Color.gray, lineWidth: 2) // Set the border color and width
+                                                )
+                                            VStack{
+                                                RoundedRectangle(cornerRadius: 10)
+                                                    .foregroundColor(.white)
+                                                    .frame(width: 100, height:10)
+                                                    .overlay(
+                                                        Text("Password")
+                                                            .foregroundColor(.black) // Set the text color
+                                                    )
+                                            }
+                                            .frame(maxWidth: .infinity, alignment: .topLeading)
+                                            .offset(x:20,y:-28)
+                                        }
+                                        .frame(maxWidth: .infinity,alignment: .leading)
+                                    }
+                                    Button(){
+                                        //                            isBlurLogIn.toggle()
+                                        
+                                    } label: {
+                                        Text("Log In")
+                                            .fontWeight(.bold)
+                                            .foregroundColor(.white)
+                                    }
+                                    .frame(maxWidth: size.width, minHeight: 65)
+                                    .background(Color.black)
+                                    .tint(.white)
+                                    .clipShape(RoundedRectangle(cornerRadius:30))
+                                    .padding()
                                 }
-                                .frame(maxWidth: size.width, minHeight: 65)
-                                .background(Color.black)
-                                .tint(.white)
-                                .clipShape(RoundedRectangle(cornerRadius:30))
-                                .padding()
+                                
                                 HStack(spacing: 20){
                                     Text("OR")
                                     Rectangle()
@@ -469,7 +517,10 @@ struct LogInView: View {
                                 Button(){
                                     //                            isBlurLogIn.toggle()
                                     
-                                    
+                                    isLogIn.toggle()
+                                    isWelComeView = false
+                                    isAvatarInfo = true
+                                    print(isWelComeView)
                                 } label: {
                                     Text("Sign up")
                                         .fontWeight(.bold)
@@ -736,7 +787,7 @@ struct LogInView: View {
                                         .frame(maxWidth: .infinity,alignment: .leading)
                                         
                                         ZStack{
-                                            TextField("Enter text", text: $fullNameTerm)
+                                            TextField("Enter text", text: $userNameSignIn)
                                                 .padding()
                                                 .overlay(
                                                     RoundedRectangle(cornerRadius: 10)
@@ -757,7 +808,7 @@ struct LogInView: View {
                                         .frame(maxWidth: .infinity,alignment: .leading)
                                         
                                         ZStack{
-                                            TextField("Enter text", text: $fullNameTerm)
+                                            TextField("Enter text", text: $passwordSignIn)
                                                 .padding()
                                                 .overlay(
                                                     RoundedRectangle(cornerRadius: 10)
@@ -778,7 +829,7 @@ struct LogInView: View {
                                         .frame(maxWidth: .infinity,alignment: .leading)
                                         
                                         ZStack{
-                                            TextField("Enter text", text: $fullNameTerm)
+                                            TextField("Enter text", text: $confirmPassTerm)
                                                 .padding()
                                                 .overlay(
                                                     RoundedRectangle(cornerRadius: 10)
@@ -810,7 +861,16 @@ struct LogInView: View {
                                         }
                                     Button(){
                                         //                            isBlurLogIn.toggle()
-                                        isSettingScreen = true
+                                        if (passwordSignIn == confirmPassTerm){
+                                            isSettingScreen = true
+                                            DataController().addUser(fullname: fullNameTerm,username: userNameSignIn, password: passwordSignIn, context: managedObjContext)
+                                            dismiss()
+                                        }
+                                        else{
+                                            showAlert.toggle()
+                                        }
+                                        
+                                        
                                     } label: {
                                         Text("Continue")
                                             .fontWeight(.bold)
@@ -821,6 +881,13 @@ struct LogInView: View {
                                     .tint(.white)
                                     .clipShape(RoundedRectangle(cornerRadius:30))
                                     .padding()
+                                    .alert(isPresented: $showAlert) {
+                                        Alert(
+                                            title: Text("Password alert").foregroundColor(Color.red),
+                                            message: Text("comfirm password doesn't match"),
+                                            dismissButton: .default(Text("OK"))
+                                        )
+                                    }
                                 }
                                 .frame(maxWidth: .infinity, alignment: .center)
                                 

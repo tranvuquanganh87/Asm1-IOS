@@ -28,11 +28,12 @@ class DataController : ObservableObject {
         }
     }
     
-    func addUser(username : String, password : String, context: NSManagedObjectContext){
+    func addUser(fullname : String, username : String, password : String, context: NSManagedObjectContext){
         let user = User(context : context)
         user.id = UUID()
         user.username = username
         user.password = password
+        user.fullname = fullname
         user.score = 10
         save(context: context)
         
